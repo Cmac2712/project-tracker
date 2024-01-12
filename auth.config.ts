@@ -1,6 +1,9 @@
 import type { NextAuthConfig } from 'next-auth';
+import { PrismaAdapter } from "@auth/prisma-adapter"
+import prisma from "@/lib/db"
  
 export const authConfig = {
+  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/login',
   },

@@ -1,16 +1,17 @@
 'use client';
  
 import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions/authenticate';
+import { signup } from '@/app/lib/actions/signup';
  
-export default function LoginForm() {
-  const [state, dispatch] = useFormState(authenticate, undefined);
- 
+export default function SignupForm() {
+  const [state, dispatch] = useFormState(signup, undefined);
+
   return (
     <form action={dispatch} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
+        <p>state: {state}</p>
         <h1 className={`mb-3 text-2xl text-gray-900`}>
-          Please log in to continue.
+            Sign up
         </h1>
         <div className="w-full">
           <div>
@@ -51,27 +52,9 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <LoginButton />
-        <div className="flex h-8 items-end space-x-1">
-          {state === 'CredentialSignin' && (
-            <>
-              <p aria-live="polite" className="text-sm text-red-500">
-                Invalid credentials
-              </p>
-            </>
-          )}
-        </div>
+      <button className='bg-blue-100 text-gray-500 text-center mt-2 p-2'>Sign up</button>
       </div>
     </form>
   );
 }
  
-function LoginButton() {
-  const { pending } = useFormStatus();
- 
-  return (
-    <button className="mt-4 w-full text-gray bg-cyan-900" aria-disabled={pending}>
-      Log in 
-    </button>
-  );
-}

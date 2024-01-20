@@ -52,9 +52,19 @@ export default function SignupForm() {
             </div>
           </div>
         </div>
-      <button className='bg-blue-100 text-gray-500 text-center mt-2 p-2'>Sign up</button>
+        <SignupButton/>
       </div>
     </form>
   );
 }
  
+ 
+function SignupButton() {
+  const { pending } = useFormStatus();
+ 
+  return (
+    <button className="mt-4 w-full text-gray bg-cyan-900" aria-disabled={pending}>
+      Sign Up 
+    </button>
+  );
+}

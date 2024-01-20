@@ -1,5 +1,5 @@
 'use server'
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthConfig } from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
@@ -23,7 +23,13 @@ const config = {
 
             if (!user) return null;
 
-            const passwordsMatch = await bcrypt.compare(password, user.password);
+            let passwordsMatch; 
+            
+            try {
+              passwordsMatch = await bcrypt.compare(password, user.password);
+            } catch(error) {
+              console.log('passwords: ', error)
+            }
 
             if (passwordsMatch) return user;
           }
@@ -34,7 +40,7 @@ const config = {
       },
     }),
   ],
-}
+} satisfies NextAuthConfig
 
 export async function getAuth(...args: [GetServerSidePropsContext["req"], GetServerSidePropsContext["res"]] | [NextApiRequest, NextApiResponse] | []) {
   return getServerSession(...args, config)

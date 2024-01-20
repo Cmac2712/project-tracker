@@ -1,4 +1,7 @@
 import { signIn } from '@/auth';
+import AuthError from 'next-auth';
+ 
+// ...
  
 export async function authenticate(
   prevState: string | undefined,
@@ -7,9 +10,14 @@ export async function authenticate(
   try {
     await signIn('credentials', Object.fromEntries(formData));
   } catch (error) {
-    if ((error as Error).message.includes('CredentialsSignin')) {
-      return 'CredentialSignin';
-    }
-    throw error;
+      console.log('error type: ', error)
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
+        default:
+          return 'Something went wrong.';
+      }
+    return 'Unknown error'
+    //throw error;
   }
 }

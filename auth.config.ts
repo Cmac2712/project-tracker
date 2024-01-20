@@ -1,9 +1,6 @@
 import type { NextAuthConfig } from 'next-auth';
-import { PrismaAdapter } from "@auth/prisma-adapter"
-import prisma from "@/lib/db"
  
 export const authConfig = {
-  adapter: PrismaAdapter(prisma),
   pages: {
     signIn: '/login',
   },
@@ -19,7 +16,7 @@ export const authConfig = {
         return Response.redirect(new URL('/dashboard', nextUrl));
       }
       return true;
-    },
+    }
   },
-  providers: [], // Add providers with an empty array for now
+  providers: [] 
 } satisfies NextAuthConfig;

@@ -1,18 +1,28 @@
-'use client';
- 
-import { useFormState, useFormStatus } from 'react-dom';
-import { signup } from '@/app/lib/actions/signup';
- 
-export default function SignupForm() {
-  const [state, dispatch] = useFormState(signup, undefined);
+"use client"
 
+import { Button } from '@/app/ui/button';
+import { signIn } from 'next-auth/react';
+import { FormEvent } from 'react';
+
+async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+
+  const formData = new FormData(event.currentTarget);
+
+  const response = await signIn("credentials", {
+    email: formData.get("email") as string,
+    password: formData.get("password") as string,
+    callbackUrl: `${window.location.origin}/dashboard`,
+  });
+
+  console.log({response})
+}
+
+export default function LoginForm() {
   return (
-    <form action={dispatch} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
-        <p>state: {state}</p>
-        <h1 className={`mb-3 text-2xl text-gray-900`}>
-            Sign up
-        </h1>
+        <h1 className={`mb-3 text-2xl text-gray-900`}>Login</h1>
         <div className="w-full">
           <div>
             <label
@@ -52,19 +62,8 @@ export default function SignupForm() {
             </div>
           </div>
         </div>
-        <SignupButton/>
+        <Button>Login</Button>
       </div>
     </form>
-  );
-}
- 
- 
-function SignupButton() {
-  const { pending } = useFormStatus();
- 
-  return (
-    <button className="mt-4 w-full text-gray bg-cyan-900" aria-disabled={pending}>
-      Sign Up 
-    </button>
   );
 }

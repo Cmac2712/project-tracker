@@ -1,16 +1,29 @@
 'use client';
  
-import { useFormState, useFormStatus } from 'react-dom';
-import { authenticate } from '@/app/lib/actions/authenticate';
+import { FormEvent } from 'react';
+import { Button } from '@/app/ui/button'
+
+async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
  
-export default function LoginForm() {
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+  const formData = new FormData(event.currentTarget);
+  const response = await fetch('/api/auth/register', {
+    method: 'POST',
+    body: JSON.stringify({
+      email: formData.get('email'),
+      password: formData.get('password'),
+    }),
+  })
+
+  console.log('response: ', response)
+}
  
+export default function SignupForm() {
   return (
-    <form action={dispatch} className="space-y-3">
+    <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">
         <h1 className={`mb-3 text-2xl text-gray-900`}>
-          Please log in to continue.
+            Sign up
         </h1>
         <div className="w-full">
           <div>
@@ -51,29 +64,10 @@ export default function LoginForm() {
             </div>
           </div>
         </div>
-        <LoginButton />
-        <div
-          className="flex h-8 items-end space-x-1"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          {errorMessage && (
-            <>
-              <p className="text-sm text-red-500">{errorMessage}</p>
-            </>
-          )}
-        </div> 
+        <Button>
+          Sign Up 
+        </Button>
       </div>
     </form>
-  );
-}
- 
-function LoginButton() {
-  const { pending } = useFormStatus();
- 
-  return (
-    <button className="mt-4 w-full text-gray bg-cyan-900" aria-disabled={pending}>
-      Log in 
-    </button>
   );
 }

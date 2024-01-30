@@ -1,24 +1,29 @@
 'use client';
  
+import { Button } from '@/app/ui/button';
+import { useRouter } from 'next/navigation';
 import { FormEvent } from 'react';
-import { Button } from '@/app/ui/button'
 
-async function handleSubmit(event: FormEvent<HTMLFormElement>) {
-  event.preventDefault();
- 
-  const formData = new FormData(event.currentTarget);
-  const response = await fetch('/api/auth/register', {
-    method: 'POST',
-    body: JSON.stringify({
-      email: formData.get('email'),
-      password: formData.get('password'),
-    }),
-  })
-
-  console.log('response: ', response)
-}
- 
 export default function SignupForm() {
+  const router = useRouter();
+
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+  
+    const formData = new FormData(event.currentTarget);
+    const response = await fetch('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify({
+        email: formData.get('email'),
+        password: formData.get('password'),
+      }),
+    })
+
+    if (response.ok) {
+      router.push('/dashboard');
+    }
+  }
+  
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <div className="flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8">

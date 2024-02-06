@@ -2,9 +2,7 @@ import { clsx } from 'clsx';
 import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 import { Inter as FontSans } from 'next/font/google';
-import Link from 'next/link';
 import './globals.css';
-import LogoutButton from './ui/logout';
 
 export const fontSans = FontSans({
   subsets: ["latin"],
@@ -26,9 +24,6 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-      <nav>
-        { session ? <LogoutButton /> : <Link href="/login">Login</Link> }
-      </nav>
         {children}
         </body>
     </html>

@@ -1,9 +1,12 @@
+import { getProviders } from 'next-auth/react';
 import LoginForm from './form';
  
-export default function LoginPage() {
+export default async function LoginPage() {
+const providers = await getProviders()
+
   return (
     <main className="flex items-center justify-center md:h-screen">
-      <LoginForm />
+      <LoginForm providers={providers} />
     </main>
   );
 }

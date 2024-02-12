@@ -1,10 +1,11 @@
 "use client"
 
-import { signIn } from 'next-auth/react';
+import { BuiltInProviderType } from 'next-auth/providers/index';
+import { ClientSafeProvider, LiteralUnion, signIn } from 'next-auth/react';
 import { Button } from '../ui/button';
 
 interface LoginFormProps {
-  providers: Array<any>;
+  providers: Record<LiteralUnion<BuiltInProviderType, string>, ClientSafeProvider>
 }
 
 export default function LoginForm({providers}: LoginFormProps) {

@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 
-export const fontSans = FontSans({
+const fontSans = FontSans({
   subsets: ["latin"],
   variable: "--font-sans",
 })

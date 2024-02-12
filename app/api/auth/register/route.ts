@@ -15,9 +15,7 @@ export async function POST(request: Request, response: Response) {
 
         return NextResponse.json({user})
     } catch(e) {
-        console.log(e)
-
-        switch(e.code) {
+        switch((e as any).code) {
             case 'P2002':
                 return NextResponse.json({message: 'Email already exists'}, {status: 400})
             case 'P2003':

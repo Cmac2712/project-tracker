@@ -1,4 +1,14 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  pageExtensions: ['js', 'jsx', 'mdx', 'ts', 'tsx'],
+};
 
-module.exports = nextConfig
+const withPWA = require('@ducanh2912/next-pwa').default({
+  aggressiveFrontEndNavCaching: true,
+  cacheOnFrontEndNav: true,
+  dest: 'public',
+});
+
+const withMDX = require('@next/mdx')();
+
+module.exports = withMDX(withPWA(nextConfig));

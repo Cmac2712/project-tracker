@@ -1,14 +1,14 @@
-import { getProviders } from 'next-auth/react';
-import LoginForm from './form';
- 
-export default async function LoginPage() {
-const providers = await getProviders()
+import { login, signup } from './actions'
 
-  if (!providers) return null
-
+export default function LoginPage() {
   return (
-    <main className="flex items-center justify-center md:h-screen">
-      <LoginForm providers={providers} />
-    </main>
-  );
+    <form>
+      <label htmlFor="email">Email:</label>
+      <input id="email" name="email" type="email" required />
+      <label htmlFor="password">Password:</label>
+      <input id="password" name="password" type="password" required />
+      <button formAction={login}>Log in</button>
+      <button formAction={signup}>Sign up</button>
+    </form>
+  )
 }

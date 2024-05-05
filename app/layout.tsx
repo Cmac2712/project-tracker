@@ -1,6 +1,5 @@
 import { clsx } from 'clsx';
 import type { Metadata } from 'next';
-import { getServerSession } from 'next-auth';
 import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
 
@@ -19,7 +18,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  const session = await getServerSession()
 
   return (
     <html lang="en">

@@ -21,8 +21,8 @@ export async function login(formData: FormData) {
     redirect(`/login?message=${error.message}`)
   }
 
-  revalidatePath('/private', 'layout')
-  redirect('/private')
+  revalidatePath('/projects', 'layout')
+  redirect('/projects')
 }
 
 export async function signup(formData: FormData) {

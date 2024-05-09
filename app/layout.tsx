@@ -1,4 +1,4 @@
-import { clsx } from 'clsx';
+import { cn } from '@/lib/utils/cn';
 import type { Metadata } from 'next';
 import { Inter as FontSans } from 'next/font/google';
 import './globals.css';
@@ -20,10 +20,12 @@ export default async function RootLayout({
 }) {
 
   return (
-    <html lang="en">
-      <body className={clsx("min-h-screen bg-background font-sans antialiased", fontSans.variable)}>
-        {children}
-        </body>
+    <html lang="en" className='dark'>
+      <body className={cn('bg-background text-foreground', fontSans.variable)}>
+        <main className="min-h-screen flex flex-col items-center">
+          {children}
+        </main>
+      </body>
     </html>
   )
 }

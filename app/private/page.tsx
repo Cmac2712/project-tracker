@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { createClient } from '@/lib/utils/supabase/server'
 import { redirect } from 'next/navigation'
+import { logout } from './actions'
 
 export default async function PrivatePage() {
   const supabase = createClient()
@@ -16,7 +16,9 @@ export default async function PrivatePage() {
   return (
     <>
     <p>Hello {data.user.email}</p>
-    <Button>Log out</Button>
+    <form>
+      <button formAction={logout}>Log out</button>
+    </form>
     </>
   )
 }

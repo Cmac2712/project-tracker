@@ -16,10 +16,12 @@ export default async function PrivatePage() {
     <>
     <p>Hello {data.user.email}</p>
     {
-      projects && projects.map((note) => {
+      projects && projects.map((project) => {
         return (
-          <li key={note.id}>
-            {note.title}
+          <li key={project.id}>
+            <Link href={`/projects/${project.id}`}>
+              {project.title}
+            </Link>
           </li>
         )
       })
